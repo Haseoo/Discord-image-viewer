@@ -20,14 +20,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     public AuthenticationManager authenticationManagerBean() {
         return  authentication -> {
-            if (authentication.getPrincipal() == null) {
-                authentication.setAuthenticated(false);
-
-            } else {
-                String token = (String)authentication.getPrincipal();
-                authentication.setAuthenticated(jwtService.isTokenValid(token));
+            String token = (String)authentication.getPrincipal();
+            if (jwtService.isTokenValid(token)) {
+                return authentication;
             }
-            return authentication;
+            return null;
         };
     }
 
@@ -43,7 +40,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .addFilter(filter)
                 .authorizeRequests()
-                .antMatchers("/viewer")
-                .authenticated();
+                .antMatchers("/")
+                .fullyAuthenticated();
     }
 }

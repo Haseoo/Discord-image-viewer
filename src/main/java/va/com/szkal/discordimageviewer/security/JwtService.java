@@ -33,6 +33,9 @@ public class JwtService {
     }
 
     public boolean isTokenValid(String authToken) {
+        if (authToken== null || authToken.equals("")) {
+            return false;
+        }
         try {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
             return true;

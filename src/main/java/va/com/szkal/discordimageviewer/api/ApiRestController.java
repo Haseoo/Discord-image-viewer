@@ -15,12 +15,12 @@ public class ApiRestController {
 
     private final JwtService jwtService;
 
-    @GetMapping
+    @GetMapping("/token")
     public ResponseEntity<TokenResponse> generateToken() {
         return ResponseEntity.ok(new TokenResponse(jwtService.getJwt()));
     }
 
-    @PostMapping
+    @PostMapping("/add")
     public ResponseEntity<?> addImage(StoreImageRequest request) {
         return ResponseEntity.noContent().build();
     }
