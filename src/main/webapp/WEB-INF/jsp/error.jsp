@@ -1,13 +1,13 @@
 <%@ page language="java"
          contentType="text/html;charset=UTF-8"
-         pageEncoding="UTF-8"%>
+         pageEncoding="UTF-8" %>
 <html>
 <head>
     <style>
-        table td{
-            vertical-align:top;
-            border:solid 1px #888;
-            padding:10px;
+        table td {
+            vertical-align: top;
+            border: solid 1px #888;
+            padding: 10px;
         }
     </style>
     <title>Coś poszło nie tak...</title>

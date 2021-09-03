@@ -1,5 +1,6 @@
 package va.com.szkal.discordimageviewer.security;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -23,9 +24,10 @@ public class JwtService {
         }
     }
 
-    public String getJwt() {
+    public String getJwt(String server) {
         var expiredAtLDT = LocalDateTime.now().plusSeconds(TOKEN_EXPIRATION);
         return Jwts.builder()
+                .setSubject(server)
                 .setIssuedAt(new Date())
                 .setExpiration(Date.from(expiredAtLDT.atZone(ZoneId.systemDefault()).toInstant()))
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
@@ -33,14 +35,22 @@ public class JwtService {
     }
 
     public boolean isTokenValid(String authToken) {
-        if (authToken== null || authToken.equals("")) {
+        if (authToken == null || authToken.equals("")) {
             return false;
         }
         try {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
             return true;
         } catch (JwtException ignored) {
+            return false;
         }
-        return false;
+    }
+
+    public String getServerFromJWT(String token) {
+        Claims claims = Jwts.parser()
+                .setSigningKey(jwtSecret)
+                .parseClaimsJws(token)
+                .getBody();
+        return claims.getSubject();
     }
 }

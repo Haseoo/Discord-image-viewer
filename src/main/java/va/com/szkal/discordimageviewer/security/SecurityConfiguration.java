@@ -19,10 +19,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Bean(BeanIds.AUTHENTICATION_MANAGER)
     @Override
     public AuthenticationManager authenticationManagerBean() {
-        return  authentication -> {
-            String token = (String)authentication.getPrincipal();
+        return authentication -> {
+            String token = (String) authentication.getPrincipal();
             if (jwtService.isTokenValid(token)) {
-                return authentication;
+                var auth = new ServerAuthentication(jwtService.getServerFromJWT(token), token);
+                auth.setAuthenticated(true);
+                return auth;
             }
             return null;
         };
@@ -34,8 +36,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         filter.setAuthenticationManager(authenticationManagerBean());
         http.cors()
                 .and()
+                .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("api/*")
+                .antMatchers("api/**", "GET", "POST", "PUT")
                 .hasIpAddress("127.0.0.1")
                 .and()
                 .addFilter(filter)

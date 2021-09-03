@@ -1,14 +1,14 @@
 package va.com.szkal.discordimageviewer.api;
 
-import lombok.Builder;
 import lombok.Value;
 
 import java.time.LocalDateTime;
 
 @Value
-@Builder
 public class StoreImageRequest {
+    String username;
     String channel;
-    LocalDateTime sendTime;
+    String server;
     String url;
+    LocalDateTime sendTime;
 }
