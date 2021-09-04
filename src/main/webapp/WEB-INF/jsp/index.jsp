@@ -47,7 +47,7 @@
                             <a target="_blank" href="${image.imageUrl}">
                                 <img class="card-img-top"
                                      alt="${'image by'.concat(image.username)}"
-                                     style="height: 100%; width: 100%; display: block;"
+                                     style="height: 100%; width: 100%; max-height: 300px; object-fit: contain; display: block;"
                                      src="${image.imageUrl}"
                                      data-holder-rendered="true">
                             </a>
