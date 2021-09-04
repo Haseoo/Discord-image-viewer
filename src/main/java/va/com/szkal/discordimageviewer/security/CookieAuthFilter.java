@@ -13,16 +13,16 @@ public class CookieAuthFilter extends AbstractPreAuthenticatedProcessingFilter {
 
     @Override
     protected Object getPreAuthenticatedPrincipal(HttpServletRequest request) {
+        return "N/A";
+    }
+
+    @Override
+    protected Object getPreAuthenticatedCredentials(HttpServletRequest request) {
         if (request.getCookies() == null) {
             return null;
         }
         return Arrays.stream(request.getCookies()).filter(c -> c.getName().equals(COOKIE_TOKEN))
                 .findAny().map(Cookie::getValue).orElse(null);
-    }
-
-    @Override
-    protected Object getPreAuthenticatedCredentials(HttpServletRequest request) {
-        return "N/A";
     }
 
 }

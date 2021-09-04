@@ -18,20 +18,21 @@ public class ImageService {
     @Transactional
     public Image add(StoreImageRequest storeImageRequest) {
         Image image = new Image();
+        image.setImageUrl(storeImageRequest.getUrl());
         image.setUsername(storeImageRequest.getUsername());
         image.setChannel(storeImageRequest.getChannel());
-        image.setServer(storeImageRequest.getServer());
+        image.setServerId(storeImageRequest.getServerId());
         image.setImageUrl(storeImageRequest.getUrl());
         image.setSendTime(storeImageRequest.getSendTime());
         return imageRepository.save(image);
     }
 
-    public Page<Image> getAllFromServer(String serverName, String channelName, int page) {
+    public Page<Image> getAllFromServer(long serverId, String channelName, int page) {
         Pageable pageable = PageRequest.of(page, 15);
-        return imageRepository.findAllByServerAndChannelOrderBySendTimeDesc(serverName, channelName, pageable);
+        return imageRepository.findAllByServerIdAndChannelOrderBySendTimeDesc(serverId, channelName, pageable);
     }
 
-    public Collection<String> getChannelsWithImages(String serverName) {
-        return imageRepository.findServerChannels(serverName);
+    public Collection<String> getChannelsWithImages(long serverId) {
+        return imageRepository.findServerChannels(serverId);
     }
 }

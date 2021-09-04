@@ -1,11 +1,14 @@
 package va.com.szkal.discordimageviewer.security;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.SneakyThrows;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
+import va.com.szkal.discordimageviewer.api.AuthData;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -24,10 +27,12 @@ public class JwtService {
         }
     }
 
-    public String getJwt(String server) {
+    @SneakyThrows
+    public String getJwt(AuthData authData) {
+        ObjectMapper objectMapper = new ObjectMapper();
         var expiredAtLDT = LocalDateTime.now().plusSeconds(TOKEN_EXPIRATION);
         return Jwts.builder()
-                .setSubject(server)
+                .setSubject(objectMapper.writeValueAsString(authData))
                 .setIssuedAt(new Date())
                 .setExpiration(Date.from(expiredAtLDT.atZone(ZoneId.systemDefault()).toInstant()))
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
@@ -46,11 +51,13 @@ public class JwtService {
         }
     }
 
-    public String getServerFromJWT(String token) {
+    @SneakyThrows
+    public AuthData getAuthFromJWT(String token) {
+        ObjectMapper objectMapper = new ObjectMapper();
         Claims claims = Jwts.parser()
                 .setSigningKey(jwtSecret)
                 .parseClaimsJws(token)
                 .getBody();
-        return claims.getSubject();
+        return objectMapper.readValue(claims.getSubject(), AuthData.class);
     }
 }

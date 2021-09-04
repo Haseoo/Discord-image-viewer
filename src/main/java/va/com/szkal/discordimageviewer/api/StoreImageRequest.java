@@ -6,9 +6,10 @@ import java.time.LocalDateTime;
 
 @Value
 public class StoreImageRequest {
+    long messageId;
+    long serverId;
     String username;
     String channel;
-    String server;
     String url;
     LocalDateTime sendTime;
 }

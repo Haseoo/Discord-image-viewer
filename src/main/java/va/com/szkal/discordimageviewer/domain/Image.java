@@ -12,6 +12,8 @@ public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "serverid")
+    private Long serverId;
     private String username;
     private String channel;
     private String server;

@@ -7,7 +7,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
-    <title>Obrazy z ${serverName}</title>
+    <title>Images from ${serverName}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
@@ -19,12 +19,12 @@
 <div class="col-lg-8 mx-auto p-3 py-md-5">
     <header class="d-flex align-items-center pb-3 mb-3 justify-content-center border-bottom">
         <a href="/dsc-viewer" class="d-flex align-items-center text-dark text-decoration-none">
-            <span class="fs-3 text-center">Obrazy z ${serverName}</span>
+            <span class="fs-3 text-center">Images from ${serverName}</span>
         </a>
     </header>
     <nav class="jumbotron text-center">
         <div class="container">
-            <p class="lead text-muted">Wybierz kanał</p>
+            <p class="lead text-muted">Select channel</p>
             <div style="padding: 10px 0" class="dropdown">
                 <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                    data-bs-toggle="dropdown" aria-expanded="false">
@@ -52,7 +52,7 @@
                                      data-holder-rendered="true">
                             </a>
                             <div class="card-body container">
-                                <div>Wysłany przez ${image.username}</div>
+                                <div>Sent by ${image.username}</div>
                                 <div class="text-secondary text-end fst-italic">${image.sendTime}</div>
                             </div>
                         </div>
@@ -62,10 +62,10 @@
         </main>
         <div class="d-flex justify-content-between align-items-center">
             <a href="?chanel=${channel}&page=${pageNumber - 1}"
-               class="${pageNumber == 1 ? '' : 'disabled'} btn btn-primary disabled">Poprzednia</a>
+               class="${pageNumber == 1 ? '' : 'disabled'} btn btn-primary disabled">Previous</a>
             <span>${pageNumber}/${totalPages}</span>
             <a href="?chanel=${channel}&page=${pageNumber + 1}"
-               class="${pageNumber != totalPages ? '' : 'disabled'} btn btn-primary">Następna</a>
+               class="${pageNumber != totalPages ? '' : 'disabled'} btn btn-primary">Next</a>
         </div>
     </c:if>
 </div>

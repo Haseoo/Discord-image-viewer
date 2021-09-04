@@ -20,12 +20,13 @@ public class ApiRestController {
     private final ImageService imageService;
 
     @PostMapping("/token")
-    public ResponseEntity<TokenResponse> generateToken(@RequestBody AuthRequest authRequest) {
-        return ResponseEntity.ok(new TokenResponse(jwtService.getJwt(authRequest.getServer())));
+    public ResponseEntity<TokenResponse> generateToken(@RequestBody AuthData authData) {
+        return ResponseEntity.ok(new TokenResponse(jwtService.getJwt(authData)));
     }
 
     @PostMapping("/add")
     public ResponseEntity<Image> addImage(@RequestBody StoreImageRequest request) {
         return new ResponseEntity<>(imageService.add(request), HttpStatus.CREATED);
     }
+
 }

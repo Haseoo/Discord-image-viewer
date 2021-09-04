@@ -3,6 +3,7 @@ package va.com.szkal.discordimageviewer.security;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import va.com.szkal.discordimageviewer.api.AuthData;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -10,37 +11,35 @@ import java.util.Collections;
 public class ServerAuthentication implements Authentication {
 
     private boolean authenticated;
-    private final String serverName;
-    private final String token;
+    private final AuthData authData;
 
-    public ServerAuthentication(String serverName, String token) {
-        this.serverName = serverName;
-        this.token = token;
+    public ServerAuthentication(AuthData authData) {
+        this.authData = authData;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singletonList(new SimpleGrantedAuthority(serverName));
+        return Collections.singletonList(new SimpleGrantedAuthority(Long.toString(authData.getServerId())));
     }
 
     @Override
-    public Object getCredentials() {
-        return serverName;
+    public AuthData getCredentials() {
+        return authData;
     }
 
     @Override
-    public Object getDetails() {
-        return serverName;
+    public Long getDetails() {
+        return authData.getServerId();
     }
 
     @Override
-    public Object getPrincipal() {
-        return token;
+    public AuthData getPrincipal() {
+        return authData;
     }
 
     @Override
     public boolean isAuthenticated() {
-        return false;
+        return authenticated;
     }
 
     @Override
@@ -50,6 +49,6 @@ public class ServerAuthentication implements Authentication {
 
     @Override
     public String getName() {
-        return serverName;
+        return authData.getServerName();
     }
 }

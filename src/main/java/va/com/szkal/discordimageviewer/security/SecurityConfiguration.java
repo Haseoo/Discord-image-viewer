@@ -20,9 +20,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     public AuthenticationManager authenticationManagerBean() {
         return authentication -> {
-            String token = (String) authentication.getPrincipal();
+            String token = (String) authentication.getCredentials();
             if (jwtService.isTokenValid(token)) {
-                var auth = new ServerAuthentication(jwtService.getServerFromJWT(token), token);
+                var auth = new ServerAuthentication(jwtService.getAuthFromJWT(token));
                 auth.setAuthenticated(true);
                 return auth;
             }
