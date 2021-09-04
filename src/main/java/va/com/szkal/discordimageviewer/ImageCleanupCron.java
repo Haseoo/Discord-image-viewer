@@ -12,7 +12,7 @@ import java.net.URL;
 
 @Service
 @RequiredArgsConstructor
-public class ImgageCleanupCron {
+public class ImageCleanupCron {
     private final ImageRepository imageRepository;
 
     @Scheduled(cron = "0 0 2 ? * *")
