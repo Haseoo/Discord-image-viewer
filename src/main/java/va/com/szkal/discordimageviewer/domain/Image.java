@@ -16,7 +16,6 @@ public class Image {
     private Long serverId;
     private String username;
     private String channel;
-    private String server;
     @Column(name = "imgurl")
     private String imageUrl;
     @Column(name = "sendtime")
