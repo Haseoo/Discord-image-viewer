@@ -3,7 +3,7 @@
          pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
-<html>
+<html lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
@@ -18,11 +18,15 @@
 <body>
 <table>
     <tr>
-        <td>Data</td>
+        <th id="prop">Property</th>
+        <th id="val">Value</th>
+    </tr>
+    <tr>
+        <td>Date</td>
         <td>${timestamp}</td>
     </tr>
     <tr>
-        <td>Błąd</td>
+        <td>Error</td>
         <td>${error}</td>
     </tr>
     <tr>
@@ -30,11 +34,11 @@
         <td>${status}</td>
     </tr>
     <tr>
-        <td>Wiadomość</td>
+        <td>Message</td>
         <td>${message}</td>
     </tr>
     <tr>
-        <td>Wyjątek</td>
+        <td>Exception</td>
         <td>${exception}</td>
     </tr>
     <tr>

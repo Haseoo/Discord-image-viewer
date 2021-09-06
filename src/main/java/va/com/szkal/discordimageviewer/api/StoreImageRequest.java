@@ -9,7 +9,8 @@ public class StoreImageRequest {
     long messageId;
     long serverId;
     String username;
-    String channel;
+    String channelName;
+    long channelId;
     String url;
     LocalDateTime sendTime;
 }

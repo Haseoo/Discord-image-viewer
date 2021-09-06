@@ -28,17 +28,17 @@
             <div style="padding: 10px 0" class="dropdown">
                 <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                    data-bs-toggle="dropdown" aria-expanded="false">
-                    ${channel != '' ? channel : 'Nie wybrano'}
+                    ${channel != null ? channelName : 'Not selected'}
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                     <c:forEach items="${channels}" var="item">
-                        <li><a class="dropdown-item" href="?channel=${item}">${item}</a></li>
+                        <li><a class="dropdown-item" href="?channel=${item.id}">${item.name}</a></li>
                     </c:forEach>
                 </ul>
             </div>
         </div>
     </nav>
-    <c:if test="${channel != ''}">
+    <c:if test="${channel != null}">
         <main class="container">
             <div class="row d-flex align-items-center">
                 <c:forEach items="${images}" var="image">
@@ -61,10 +61,10 @@
             </div>
         </main>
         <div class="d-flex justify-content-between align-items-center">
-            <a href="?chanel=${channel}&page=${pageNumber - 1}"
-               class="${pageNumber == 1 ? '' : 'disabled'} btn btn-primary disabled">Previous</a>
+            <a href="?channel=${channel}&page=${pageNumber - 1}"
+               class="${pageNumber != 1 ? '' : 'disabled'} btn btn-primary">Previous</a>
             <span>${pageNumber}/${totalPages}</span>
-            <a href="?chanel=${channel}&page=${pageNumber + 1}"
+            <a href="?channel=${channel}&page=${pageNumber + 1}"
                class="${pageNumber != totalPages ? '' : 'disabled'} btn btn-primary">Next</a>
         </div>
     </c:if>

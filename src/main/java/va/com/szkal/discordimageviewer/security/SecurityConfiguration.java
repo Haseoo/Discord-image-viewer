@@ -38,7 +38,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/api/**", "GET", "POST", "PUT")
+                .antMatchers("/api/**", "GET", "POST", "PUT", "PATCH")
                 .hasIpAddress("127.0.0.1")
                 .and()
                 .addFilter(filter)

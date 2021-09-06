@@ -19,15 +19,16 @@ public class MainController {
 
     @GetMapping
     public ModelAndView index(@RequestParam(defaultValue = "1") int page,
-                              @RequestParam(defaultValue = "") String channel,
+                              @RequestParam(required = false) Long channel,
                               ServerAuthentication authentication) {
         long serverId = authentication.getDetails();
-        Page<Image> imagePage = imageService.getAllFromServer(serverId, channel, page - 1);
         ModelAndView modelAndView = new ModelAndView("index");
         modelAndView.addObject("serverName", authentication.getName());
         modelAndView.addObject("channels", imageService.getChannelsWithImages(serverId));
         modelAndView.addObject("channel", channel);
-        if (!channel.equals("")) {
+        if (channel != null) {
+            modelAndView.addObject("channelName", imageService.getChanelName(channel));
+            Page<Image> imagePage = imageService.getAllFromServer(channel, page - 1);
             modelAndView.addObject("totalPages", imagePage.getTotalPages());
             modelAndView.addObject("images", imagePage.stream()
                     .map(ImageView::of)

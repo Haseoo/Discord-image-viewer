@@ -10,7 +10,7 @@
     </parent>
     <groupId>va.com.szal</groupId>
     <artifactId>discord-image-viewer</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.1</version>
     <packaging>war</packaging>
     <name>discord-image-viewer</name>
     <description>A simple discord image storage service</description>

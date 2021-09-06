@@ -11,7 +11,7 @@ import java.util.Collections;
 public class ServerAuthentication implements Authentication {
 
     private boolean authenticated;
-    private final AuthData authData;
+    private transient AuthData authData;
 
     public ServerAuthentication(AuthData authData) {
         this.authData = authData;

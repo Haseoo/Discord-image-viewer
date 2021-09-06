@@ -23,7 +23,7 @@ public class JwtService {
     public JwtService(Environment environment) {
         jwtSecret = environment.getProperty("DIV_JWT_SECRET");
         if (jwtSecret == null) {
-            throw new RuntimeException("DIV_JWT_SECRET env not present");
+            throw new IllegalStateException("DIV_JWT_SECRET env not present");
         }
     }
 
