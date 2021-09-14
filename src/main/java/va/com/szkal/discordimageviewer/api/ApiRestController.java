@@ -19,7 +19,7 @@ public class ApiRestController {
         return ResponseEntity.ok(new TokenResponse(jwtService.getJwt(authData)));
     }
 
-    @PatchMapping("/channel/{id}")
+    @PostMapping("/channel/{id}")
     public ResponseEntity<Object> updateChannelName(@PathVariable long id,
                                                     @RequestBody ChannelRequest request) {
         imageService.renameChannel(id, request.getNewName());
