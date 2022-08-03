@@ -24,9 +24,13 @@ public class MainController {
         long serverId = authentication.getDetails();
         ModelAndView modelAndView = new ModelAndView("index");
         modelAndView.addObject("serverName", authentication.getName());
-        modelAndView.addObject("channels", imageService.getChannelsWithImages(serverId));
+        modelAndView.addObject("channels", imageService.getChannelsWithImages(serverId,
+                authentication.getCredentials().getChannelIds()));
         modelAndView.addObject("channel", channel);
         if (channel != null) {
+            if (!authentication.getCredentials().getChannelIds().contains(channel)) {
+                return new ModelAndView("noAuth");
+            }
             modelAndView.addObject("channelName", imageService.getChanelName(channel));
             Page<Image> imagePage = imageService.getAllFromServer(channel, page - 1);
             modelAndView.addObject("totalPages", imagePage.getTotalPages());

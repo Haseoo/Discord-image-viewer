@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import va.com.szkal.discordimageviewer.api.StoreImageRequest;
 
 import java.util.Collection;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -35,8 +37,9 @@ public class ImageService {
         return imageRepository.findAllByChannelIdOrderBySendTimeDesc(channelId, pageable);
     }
 
-    public Collection<Channel> getChannelsWithImages(long serverId) {
-        return channelRepository.findAllByServerId(serverId);
+    public Collection<Channel> getChannelsWithImages(long serverId, Set<Long> channelIds) {
+        return channelRepository.findAllByServerId(serverId).stream().filter(channel -> channelIds.contains(channel.getId()))
+                .collect(Collectors.toSet());
     }
 
     @Transactional

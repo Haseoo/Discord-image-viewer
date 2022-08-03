@@ -67,6 +67,13 @@
             <a href="?channel=${channel}&page=${pageNumber + 1}"
                class="${pageNumber != totalPages ? '' : 'disabled'} btn btn-primary">Next</a>
         </div>
+        <div style="margin:10px">
+            <select class="form-select" aria-label="select page" onchange="location = '?channel=${channel}&page=' + this.value;">
+              <c:forEach begin="1" end="${totalPages}" var="i">
+                <option value="${i}" ${i == pageNumber ? 'selected' : ''}>${i}</option>
+              </c:forEach>
+            </select>
+        </div>
     </c:if>
 </div>
 </body>
