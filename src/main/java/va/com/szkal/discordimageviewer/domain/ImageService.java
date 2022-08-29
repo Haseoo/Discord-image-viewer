@@ -21,6 +21,7 @@ public class ImageService {
     @Transactional
     public Image add(StoreImageRequest storeImageRequest) {
         Image image = new Image();
+        image.setMessageId(storeImageRequest.getMessageId());
         image.setImageUrl(storeImageRequest.getUrl());
         image.setUsername(storeImageRequest.getUsername());
         image.setChannel(channelRepository.findById(storeImageRequest.getChannelId())
@@ -30,6 +31,11 @@ public class ImageService {
         image.setImageUrl(storeImageRequest.getUrl());
         image.setSendTime(storeImageRequest.getSendTime());
         return imageRepository.save(image);
+    }
+
+    @Transactional
+    public void deleteImagesOfMessage(long messageId) {
+        imageRepository.deleteByMessageId(messageId);
     }
 
     public Page<Image> getAllFromServer(long channelId, int page) {
